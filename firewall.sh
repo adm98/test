@@ -14,13 +14,6 @@ function flush() {
 
 #Policy de base en BLOCK --> tout ce qui n'est pas autorisé est bloqué
 
-#function docker() {
-#    -N DOCKER
-#-N DOCKER-ISOLATION-STAGE-1
-#-N DOCKER-ISOLATION-STAGE-2
-#-N DOCKER-USER
-#}
-
 #Par mesure de sécurité ajout d'une règle qui deny pour le traffic entrant
 function youshouldnotpass() {
         $I -A INPUT --protocol all --jump DROP
@@ -40,7 +33,7 @@ function lo() {
         $I -A FORWARD --in-interface lo --out-interface lo --protocol all --jump ACCEPT
 }
 
-#Fonction d'autorisation du ping pour les connexions entrantes, sortantes, forwardées
+#Fonction d'autorisation icmp pour les connexions entrantes, sortantes, forwardées
 function icmp(){
         $I -A INPUT --protocol icmp --jump ACCEPT
         $I -A OUTPUT --protocol icmp --jump ACCEPT
@@ -69,10 +62,15 @@ function ssh() {
         $I -A INPUT --protocol tcp --dport 22 --jump ACCEPT
 }
 
+#Fonction d'autorisation du flux DHCP
+function dhcp() {
+        $I -A INPUT --protocol tcp --sport 67 --jump ACCEPT
+        $I -A INPUT --protocol udp --sport 67 --jump ACCEPT
+        $I -A INPUT --protocol tcp --dport 68 --jump ACCEPT
+        $I -A INPUT --protocol udp --dport 68 --jump ACCEPT
+}
+
 #$I -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
-
-
-# !!!!!!!!!!!! OUVRIR le DHCP
 
 flush
 
@@ -87,5 +85,7 @@ http
 dns
 
 ssh
+
+dhcp
 
 youshouldnotpass
