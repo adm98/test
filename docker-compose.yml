@@ -31,7 +31,6 @@ services:
       - GITLAB_HOST=localhost
       - GITLAB_PORT=80
       - GITLAB_SSH_PORT=22
-      - GITLAB_RELATIVE_URL_ROOT=
       - GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alphanumeric-string
       - GITLAB_SECRETS_SECRET_KEY_BASE=long-and-random-alphanumeric-string
       - GITLAB_SECRETS_OTP_KEY_BASE=long-and-random-alphanumeric-string
