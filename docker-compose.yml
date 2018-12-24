@@ -3,13 +3,9 @@ version: '3'
 services:
   redis:
     image: redis:5.0.3
-    networks:
-      - network-integration
 
   postgresql:
     image: postgresql:10.6
-    networks:
-      - network-integration
     volumes:
       - /opt/docker/containers/integration/postgres:/var/lib/postgresql/data
     environment:
@@ -19,8 +15,6 @@ services:
 
   gitlab:
     image: gitlab/gitlab-ce:11.6.0
-    networks:
-      - network-integration
     volumes:
       - /opt/docker/containers/integration/gitlab:/var/opt/gitlab
     environment:
@@ -42,3 +36,8 @@ services:
       - GITLAB_SECRETS_SECRET_KEY_BASE=long-and-random-alphanumeric-string
       - GITLAB_SECRETS_OTP_KEY_BASE=long-and-random-alphanumeric-string
       - GITLAB_ROOT_PASSWORD=nddsb2tze152m2dv8g8m4o19at5rjzsc
+
+  networks:
+    default:
+      external:
+        name: network-integration
