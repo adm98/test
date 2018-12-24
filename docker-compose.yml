@@ -31,12 +31,13 @@ services:
       - GITLAB_HOST=localhost
       - GITLAB_PORT=80
       - GITLAB_SSH_PORT=22
+      - GITLAB_RELATIVE_URL_ROOT=
       - GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alphanumeric-string
       - GITLAB_SECRETS_SECRET_KEY_BASE=long-and-random-alphanumeric-string
       - GITLAB_SECRETS_OTP_KEY_BASE=long-and-random-alphanumeric-string
       - GITLAB_ROOT_PASSWORD=nddsb2tze152m2dv8g8m4o19at5rjzsc
 
-  networks:
-    default:
-      external:
-        name: network-integration
+networks:
+  default:
+    external:
+      name: network-integration
