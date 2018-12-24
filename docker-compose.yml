@@ -1,14 +1,14 @@
-version: '2'
+version: '3'
 
 services:
   redis:
     image: redis:5.0.3
-    network:
+    networks:
       - network-integration
 
   postgresql:
     image: postgresql:10.6
-    network:
+    networks:
       - network-integration
     volumes:
       - /opt/docker/containers/integration/postgres:/var/lib/postgresql/data
@@ -19,7 +19,7 @@ services:
 
   gitlab:
     image: gitlab/gitlab-ce:11.6.0
-    network:
+    networks:
       - network-integration
     volumes:
       - /opt/docker/containers/integration/gitlab:/var/opt/gitlab
@@ -30,13 +30,10 @@ services:
       - DB_USER=gitlab
       - DB_PASS=x9fdwfwkmopbjk2hj9316cad69bs0v03
       - DB_NAME=gitlabdb
-  
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-  
       - GITLAB_HTTPS=false
       - SSL_SELF_SIGNED=false
-  
       - GITLAB_HOST=localhost
       - GITLAB_PORT=80
       - GITLAB_SSH_PORT=22
@@ -44,5 +41,4 @@ services:
       - GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alphanumeric-string
       - GITLAB_SECRETS_SECRET_KEY_BASE=long-and-random-alphanumeric-string
       - GITLAB_SECRETS_OTP_KEY_BASE=long-and-random-alphanumeric-string
-  
       - GITLAB_ROOT_PASSWORD=nddsb2tze152m2dv8g8m4o19at5rjzsc
